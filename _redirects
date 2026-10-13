@@ -1,0 +1,4 @@
+# Serve the seed media files at their public paths, as the site would, so the URLs in the sample
+# entries, e.g. `/images/canoe.webp`, resolve. Keep in sync with `REWRITES` in `scripts/serve.js`.
+/images/* /seed/static/images/:splat 200
+/files/* /seed/static/files/:splat 200

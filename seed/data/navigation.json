@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "label": "Home",
+      "url": "/"
+    },
+    {
+      "label": "Posts",
+      "url": "/posts/"
+    },
+    {
+      "label": "Guides",
+      "url": "/guides/"
+    },
+    {
+      "label": "About",
+      "url": "/about/"
+    },
+    {
+      "label": "Contact",
+      "url": "/contact/"
+    }
+  ]
+}

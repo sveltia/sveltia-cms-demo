@@ -1,0 +1,69 @@
+title: All Field Types
+text: |-
+  A plain text field keeps line breaks.
+  Like this one.
+richtext: |-
+  The **rich text** field supports *Markdown*, [links](https://sveltiacms.app/), lists and more.
+
+  - Item one
+  - Item two
+
+  ![Cherry blossoms](/images/cherry-blossoms.webp)
+
+  ```js
+  console.log('Code blocks too!');
+  ```
+integer: 7
+float: 12.5
+boolean: true
+date: 2026-10-13
+datetime: 2026-10-13T08:30:00.000Z
+select: autumn
+multiselect:
+  - Hiking
+  - Photography
+relation:
+  - the-waterfall-trail
+  - above-the-tree-line
+image: /images/petunias.webp
+gallery:
+  - /images/forest-coast.webp
+  - /images/misty-valley.webp
+  - /images/cliffs.webp
+file: /files/coastal-walk.gpx
+color: '#2f7d5b'
+color_alpha: '#f0a03080'
+map: '{"type":"Point","coordinates":[3.2247,51.2093]}'
+code: |-
+  const greet = (name) => `Hello, ${name}!`;
+
+  console.log(greet('Sveltia'));
+keyvalue:
+  difficulty: Moderate
+  season: Spring to autumn
+uuid: 8f14e45f-ceea-4e6b-9a2b-6c1f3e2d4a5b
+compute: All Field Types (autumn)
+hidden: example
+object:
+  name: Ava Clarke
+  email: ava@example.com
+list:
+  - Lakes
+  - Mountains
+  - Coast
+list_fields:
+  - name: Trailhead
+    distance: 0
+  - name: Waterfall
+    distance: 3.7
+  - name: Valley Loop
+    distance: 7.4
+list_types:
+  - type: heading
+    text: A Heading Block
+  - type: quote
+    quote: Not all those who wander are lost.
+    author: J. R. R. Tolkien
+  - type: photo
+    src: /images/highland-cow.webp
+    caption: A local resident

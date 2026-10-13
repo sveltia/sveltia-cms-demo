@@ -1,0 +1,25 @@
+/
+  Cache-Control: no-cache
+
+/config.yml
+  Cache-Control: no-cache
+  Content-Type: application/yaml; charset=utf-8
+
+/seed/manifest.json
+  Cache-Control: no-cache
+
+/seed/content/*
+  Cache-Control: public, max-age=3600
+
+/seed/data/*
+  Cache-Control: public, max-age=3600
+
+/seed/static/*
+  Cache-Control: public, max-age=3600
+
+# Rewritten to `/seed/static/` in `_redirects`
+/images/*
+  Cache-Control: public, max-age=3600
+
+/files/*
+  Cache-Control: public, max-age=3600

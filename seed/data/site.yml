@@ -1,0 +1,15 @@
+en:
+  title: Wayfarer Notes
+  tagline: Stories from lakes, mountains and the roads in between
+  logo: /images/logo.svg
+  social:
+    - platform: Instagram
+      url: https://example.com/instagram
+    - platform: Mastodon
+      url: https://example.com/mastodon
+ja:
+  title: ウェイフェアラー・ノート
+  tagline: 湖や山、そしてその間の道からの物語
+fr:
+  title: Carnets de voyage
+  tagline: Des histoires de lacs, de montagnes et des routes entre les deux

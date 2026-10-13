@@ -1,0 +1,7 @@
+Trip checklist
+==============
+
+[ ] Check the weather forecast
+[ ] Tell someone where you're going
+[ ] Charge the phone and the camera
+[ ] Pack snacks

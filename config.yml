@@ -1,0 +1,426 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# Sveltia CMS demo site configuration
+# https://sveltiacms.app/en/docs/config-basics
+#
+# The `test-repo` backend keeps everything in your browser’s origin private file system (OPFS).
+# Nothing is sent to a server, and the sample content in `seed/` is copied there when you first
+# sign in. To start over, choose Settings > Advanced > Erase All Data.
+
+backend:
+  name: test-repo
+
+app_title: Sveltia CMS Demo
+logo:
+  src: /logo.svg
+
+media_folder: static/images
+public_folder: /images
+
+output:
+  omit_empty_optional_fields: true
+
+i18n:
+  structure: multiple_folders
+  locales: [en, ja, fr]
+  default_locale: en
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    description: Travel stories in English, Japanese and French. Open one to see the translations side by side.
+    icon: article
+    folder: content/posts
+    i18n: true
+    slug: "{{slug}}"
+    summary: "{{title}} · {{date | date('MMM D, YYYY')}}"
+    thumbnail: cover
+    sortable_fields:
+      fields: [title, date, author]
+      default:
+        field: date
+        direction: descending
+    view_filters:
+      filters:
+        - name: published
+          label: Published
+          field: draft
+          pattern: false
+        - name: drafts
+          label: Drafts
+          field: draft
+          pattern: true
+    view_groups:
+      groups:
+        - name: year
+          label: Year
+          field: date
+          pattern: \d{4}
+        - name: author
+          label: Author
+          field: author
+    fields:
+      - name: title
+        label: Title
+        i18n: true
+      - name: date
+        label: Published Date
+        widget: datetime
+        i18n: duplicate
+      - name: draft
+        label: Draft
+        widget: boolean
+        default: false
+        i18n: duplicate
+      - name: author
+        label: Author
+        widget: relation
+        collection: authors
+        value_field: "{{slug}}"
+        search_fields: [name]
+        display_fields: [name]
+        i18n: duplicate
+      - name: tags
+        label: Tags
+        widget: select
+        multiple: true
+        options: [Coast, Forest, Mountains, Lakes, Cities, Desert, Night Sky, Tips]
+        required: false
+        i18n: duplicate
+      - name: cover
+        label: Cover Image
+        widget: image
+        required: false
+        i18n: duplicate
+      - name: description
+        label: Description
+        widget: text
+        hint: A short summary shown in search results and social media cards.
+        required: false
+        i18n: true
+      - name: body
+        label: Body
+        widget: richtext
+        i18n: true
+
+  - name: authors
+    label: Authors
+    label_singular: Author
+    icon: group
+    folder: content/authors
+    extension: yml
+    identifier_field: name
+    summary: "{{name}} – {{role}}"
+    thumbnail: avatar
+    media_folder: /static/images/authors
+    public_folder: /images/authors
+    fields:
+      - name: name
+        label: Name
+      - name: role
+        label: Role
+        required: false
+      - name: avatar
+        label: Avatar
+        widget: image
+        required: false
+      - name: bio
+        label: Bio
+        widget: text
+        required: false
+      - name: links
+        label: Links
+        widget: list
+        summary: "{{label}}"
+        required: false
+        fields:
+          - name: label
+            label: Label
+          - name: url
+            label: URL
+            pattern: ["^https?://", Enter a URL starting with https://]
+
+  - name: pages
+    label: Pages
+    label_singular: Page
+    description: A nested collection. Pages live in folders, shown as a tree.
+    icon: account_tree
+    folder: content/pages
+    nested:
+      depth: 3
+      summary: "{{title}}"
+    meta:
+      path:
+        label: Path
+        index_file: index
+    summary: "{{title}}"
+    thumbnail: cover
+    fields:
+      - name: title
+        label: Title
+      - name: cover
+        label: Cover Image
+        widget: image
+        required: false
+      - name: body
+        label: Body
+        widget: richtext
+        required: false
+
+  - divider: true
+
+  - name: examples
+    label: Field Types
+    label_singular: Example
+    description: Every built-in field type in one place. Change anything; it’s your sandbox.
+    icon: widgets
+    folder: content/examples
+    extension: yml
+    editor:
+      preview: false
+    fields:
+      - name: title
+        label: String
+        hint: The `string` field type. This one is also the entry title.
+      - name: text
+        label: Text
+        widget: text
+        required: false
+      - name: richtext
+        label: Rich Text
+        widget: richtext
+        hint: Switch between the rich text and Markdown modes with the toolbar menu.
+        required: false
+      - name: integer
+        label: Number (Integer)
+        widget: number
+        value_type: int
+        min: 0
+        max: 10
+        required: false
+      - name: float
+        label: Number (Float)
+        widget: number
+        value_type: float
+        step: 0.1
+        after_input: km
+        required: false
+      - name: boolean
+        label: Boolean
+        widget: boolean
+        required: false
+      - name: date
+        label: Date
+        widget: datetime
+        time_format: false
+        required: false
+      - name: datetime
+        label: Date & Time
+        widget: datetime
+        required: false
+      - name: select
+        label: Select
+        widget: select
+        options:
+          - { label: Spring, value: spring }
+          - { label: Summer, value: summer }
+          - { label: Autumn, value: autumn }
+          - { label: Winter, value: winter }
+        required: false
+      - name: multiselect
+        label: Select (Multiple)
+        widget: select
+        multiple: true
+        options: [Hiking, Cycling, Kayaking, Climbing, Camping, Photography, Birdwatching, Skiing]
+        required: false
+      - name: relation
+        label: Relation
+        widget: relation
+        collection: posts
+        value_field: "{{slug}}"
+        search_fields: [title]
+        display_fields: [title]
+        multiple: true
+        required: false
+      - name: image
+        label: Image
+        widget: image
+        required: false
+      - name: gallery
+        label: Image (Multiple)
+        widget: image
+        multiple: true
+        required: false
+      - name: file
+        label: File
+        widget: file
+        required: false
+      - name: color
+        label: Color
+        widget: color
+        required: false
+      - name: color_alpha
+        label: Color (with Alpha)
+        widget: color
+        allowInput: true
+        enableAlpha: true
+        required: false
+      - name: map
+        label: Map
+        widget: map
+        required: false
+      - name: code
+        label: Code
+        widget: code
+        default_language: js
+        required: false
+      - name: keyvalue
+        label: Key-Value Pairs
+        widget: keyvalue
+        required: false
+      - name: uuid
+        label: UUID
+        widget: uuid
+        readonly: true
+      - name: compute
+        label: Compute
+        widget: compute
+        value: "{{fields.title}} ({{fields.select}})"
+      - name: hidden
+        label: Hidden
+        widget: hidden
+        default: example
+      - name: object
+        label: Object
+        widget: object
+        summary: "{{name}}"
+        required: false
+        fields:
+          - name: name
+            label: Name
+          - name: email
+            label: Email
+            required: false
+            pattern: ['^.+@.+\..+$', Enter a valid email address]
+      - name: list
+        label: List (Strings)
+        widget: list
+        required: false
+      - name: list_fields
+        label: List (Objects)
+        label_singular: Stop
+        widget: list
+        summary: "{{name}} ({{distance}} km)"
+        required: false
+        fields:
+          - name: name
+            label: Name
+          - name: distance
+            label: Distance
+            widget: number
+            value_type: float
+            required: false
+      - name: list_types
+        label: List (Variable Types)
+        label_singular: Block
+        widget: list
+        required: false
+        types:
+          - name: heading
+            label: Heading
+            summary: "{{text}}"
+            fields:
+              - name: text
+                label: Text
+          - name: quote
+            label: Quote
+            summary: "{{author}}"
+            fields:
+              - name: quote
+                label: Quote
+                widget: text
+              - name: author
+                label: Author
+          - name: photo
+            label: Photo
+            summary: "{{caption}}"
+            fields:
+              - name: src
+                label: Image
+                widget: image
+              - name: caption
+                label: Caption
+                required: false
+
+singletons:
+  - name: site
+    label: Site Settings
+    icon: settings
+    file: data/site.yml
+    i18n:
+      structure: single_file
+    fields:
+      - name: title
+        label: Site Title
+        i18n: true
+      - name: tagline
+        label: Tagline
+        i18n: true
+      - name: logo
+        label: Logo
+        widget: image
+        required: false
+      - name: social
+        label: Social Links
+        widget: list
+        summary: "{{platform}}"
+        required: false
+        fields:
+          - name: platform
+            label: Platform
+            widget: select
+            options: [Bluesky, GitHub, Instagram, Mastodon, YouTube]
+          - name: url
+            label: URL
+  - name: navigation
+    label: Navigation
+    icon: menu
+    file: data/navigation.json
+    fields:
+      - name: items
+        label: Menu Items
+        label_singular: Menu Item
+        widget: list
+        summary: "{{label}} → {{url}}"
+        fields:
+          - name: label
+            label: Label
+          - name: url
+            label: URL
+  - name: theme
+    label: Theme
+    icon: palette
+    file: data/theme.toml
+    fields:
+      - name: accent_color
+        label: Accent Color
+        widget: color
+      - name: font
+        label: Font
+        widget: select
+        options: [System, Serif, Monospace]
+      - name: dark_mode
+        label: Dark Mode
+        widget: select
+        options:
+          - { label: Follow the system, value: auto }
+          - { label: Always light, value: light }
+          - { label: Always dark, value: dark }
+
+asset_collections:
+  - name: downloads
+    label: Downloads
+    icon: download
+    media_folder: static/files
+    public_folder: /files

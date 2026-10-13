@@ -1,0 +1,13 @@
+{
+  "name": "sveltia-cms-demo",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "deploy": "pnpm build && wrangler pages deploy --commit-dirty=true",
+    "dev": "node scripts/serve.js"
+  }
+}
