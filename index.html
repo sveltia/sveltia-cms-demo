@@ -11,8 +11,61 @@
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <!-- Sample content copied to the browser’s storage on the first sign-in -->
     <link rel="cms-seed-url" href="/seed/manifest.json" />
+    <!--
+      The banner looks like an info infobar of the CMS, using the theme variables Sveltia UI defines
+      on `:root`, so it follows the light and dark modes. Links get the CMS’s global link style,
+      which also follows the Underline Links setting. The CMS is mounted to `#nc-root`, which
+      fills the rest of the page; it isn’t `static`, so the CMS leaves its position alone.
+      https://sveltiacms.app/en/docs/customization#custom-mount-element
+    -->
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        margin: 0;
+        background-color: var(--sui-primary-background-color);
+      }
+
+      .demo-banner {
+        flex: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 6px 12px;
+        border-bottom: 1px solid var(--sui-info-border-color);
+        padding: 6px;
+        min-height: 32px;
+        box-sizing: border-box;
+        color: var(--sui-info-foreground-color);
+        background-color: var(--sui-info-background-color);
+        font-family: var(--sui-font-family-default, system-ui, sans-serif);
+        font-size: var(--sui-font-size-small, 13px);
+      }
+
+      .demo-banner p {
+        margin: 0;
+      }
+
+      #nc-root {
+        flex: auto;
+        position: relative;
+      }
+    </style>
   </head>
   <body>
+    <aside class="demo-banner" aria-label="About this demo">
+      <p>This is a live demo of <a href="https://sveltiacms.app/en/" target="_blank">Sveltia CMS</a>.</p>
+      <a href="https://github.com/sveltia/sveltia-cms-demo" target="_blank">Source</a>
+      <a href="https://sveltiacms.app/en/docs" target="_blank">Docs</a>
+    </aside>
+    <div id="nc-root"></div>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <!-- Examples of the JavaScript API -->
     <script src="/api.js"></script>
