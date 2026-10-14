@@ -10,8 +10,8 @@ The source of [demo.sveltiacms.app](https://demo.sveltiacms.app/), a live demo o
 
 The sample content shows off:
 
-- **Posts**: a multilingual collection in English, Japanese and French (`multiple_folders` structure), with a relation to Authors, filters, groups and a draft
-- **Authors**: YAML entries with a collection-level media folder
+- **Posts**: a multilingual collection in English, Japanese and French (`multiple_folders` structure), with a relation to Authors, filters, groups, a draft, a [table view](https://sveltiacms.app/en/docs/collections/entries/views#table-view) with custom columns (`table_columns`) and [bulk editing](https://sveltiacms.app/en/docs/collections/entries/operations#bulk-editing-entries) (`bulk_edit`)
+- **Authors**: YAML entries with a collection-level media folder, table columns and bulk editing
 - **Pages**: a nested collection shown as a tree
 - **Field Types**: a file collection with one entry per built-in field type, showing its main options
 - **API Examples**: [JavaScript API](https://sveltiacms.app/en/docs/api) examples defined in `api.js`: custom preview styles and templates, editor components, a field type and a string transformation, event hooks, and a Demo Guide custom page
