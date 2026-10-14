@@ -56,7 +56,6 @@ collections:
       - { field: "{{date | date('MMM D, YYYY')}}", label: Published }
       - author
       - tags
-      - "{{locales}}"
       - draft
     bulk_edit:
       fields: [title, date, draft, author]
@@ -122,10 +121,6 @@ collections:
     identifier_field: name
     summary: "{{name}} – {{role}}"
     thumbnail: avatar
-    table_columns:
-      - name
-      - role
-      - commit_date
     bulk_edit: true
     media_folder: /static/images/authors
     public_folder: /images/authors
