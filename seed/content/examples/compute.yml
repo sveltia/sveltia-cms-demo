@@ -1,0 +1,10 @@
+first_name: Ava
+last_name: Clarke
+full_name: Ava Clarke
+stops:
+  - name: Trailhead
+    number: 0
+  - name: Waterfall
+    number: 1
+  - name: Valley Loop
+    number: 2

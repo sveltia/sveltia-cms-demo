@@ -172,186 +172,637 @@ collections:
 
   - name: examples
     label: Field Types
-    label_singular: Example
-    description: Every built-in field type in one place. Change anything; it’s your sandbox.
+    label_singular: Field Type
+    description: One file per built-in field type, each showing its main options. Change anything; it’s your sandbox.
     icon: widgets
-    folder: content/examples
-    extension: yml
     editor:
       preview: false
-    fields:
-      - name: title
-        label: String
-        hint: The `string` field type. This one is also the entry title.
-      - name: text
-        label: Text
-        widget: text
-        required: false
-      - name: richtext
-        label: Rich Text
-        widget: richtext
-        hint: Switch between the rich text and Markdown modes with the toolbar menu.
-        required: false
-      - name: integer
-        label: Number (Integer)
-        widget: number
-        value_type: int
-        min: 0
-        max: 10
-        required: false
-      - name: float
-        label: Number (Float)
-        widget: number
-        value_type: float
-        step: 0.1
-        after_input: km
-        required: false
+    files:
       - name: boolean
         label: Boolean
-        widget: boolean
-        required: false
-      - name: date
-        label: Date
-        widget: datetime
-        time_format: false
-        required: false
-      - name: datetime
-        label: Date & Time
-        widget: datetime
-        required: false
-      - name: select
-        label: Select
-        widget: select
-        options:
-          - { label: Spring, value: spring }
-          - { label: Summer, value: summer }
-          - { label: Autumn, value: autumn }
-          - { label: Winter, value: winter }
-        required: false
-      - name: multiselect
-        label: Select (Multiple)
-        widget: select
-        multiple: true
-        options: [Hiking, Cycling, Kayaking, Climbing, Camping, Photography, Birdwatching, Skiing]
-        required: false
-      - name: relation
-        label: Relation
-        widget: relation
-        collection: posts
-        value_field: "{{slug}}"
-        search_fields: [title]
-        display_fields: [title]
-        multiple: true
-        required: false
-      - name: image
-        label: Image
-        widget: image
-        required: false
-      - name: gallery
-        label: Image (Multiple)
-        widget: image
-        multiple: true
-        required: false
-      - name: file
-        label: File
-        widget: file
-        required: false
-      - name: color
-        label: Color
-        widget: color
-        required: false
-      - name: color_alpha
-        label: Color (with Alpha)
-        widget: color
-        allowInput: true
-        enableAlpha: true
-        required: false
-      - name: map
-        label: Map
-        widget: map
-        required: false
+        icon: toggle_on
+        file: content/examples/boolean.yml
+        fields:
+          - name: plain
+            label: Plain
+            widget: boolean
+            required: false
+          - name: default_on
+            label: On by Default
+            widget: boolean
+            default: true
+            hint: "`default: true` turns it on in a new entry."
+            required: false
+          - name: labeled
+            label: With Labels
+            widget: boolean
+            before_input: Hide
+            after_input: Show
+            hint: "`before_input` and `after_input` label the two states."
+            required: false
+
       - name: code
         label: Code
-        widget: code
-        default_language: js
-        required: false
-      - name: keyvalue
-        label: Key-Value Pairs
-        widget: keyvalue
-        required: false
-      - name: uuid
-        label: UUID
-        widget: uuid
-        readonly: true
+        icon: code
+        file: content/examples/code.yml
+        fields:
+          - name: snippet
+            label: With Language
+            widget: code
+            default_language: js
+            hint: Saved as an object with the `code` and `lang` properties.
+            required: false
+          - name: css
+            label: Code Only
+            widget: code
+            default_language: css
+            allow_language_selection: false
+            output_code_only: true
+            hint: "`output_code_only` saves just the code, and `allow_language_selection: false` hides the language menu."
+            required: false
+
+      - name: color
+        label: Color
+        icon: palette
+        file: content/examples/color.yml
+        fields:
+          - name: plain
+            label: Plain
+            widget: color
+            required: false
+          - name: input
+            label: With Text Input
+            widget: color
+            allowInput: true
+            hint: "`allowInput: true` lets you type a hex value."
+            required: false
+          - name: alpha
+            label: With Alpha
+            widget: color
+            allowInput: true
+            enableAlpha: true
+            hint: "`enableAlpha: true` adds an opacity slider."
+            required: false
+
       - name: compute
         label: Compute
-        widget: compute
-        value: "{{fields.title}} ({{fields.select}})"
+        icon: function
+        file: content/examples/compute.yml
+        fields:
+          - name: first_name
+            label: First Name
+            hint: >-
+              A Compute field is hidden in the editor. On save, this entry’s `full_name` is computed
+              from `{{fields.first_name}} {{fields.last_name}}`.
+            required: false
+          - name: last_name
+            label: Last Name
+            required: false
+          - name: full_name
+            label: Full Name
+            widget: compute
+            value: "{{fields.first_name}} {{fields.last_name}}"
+          - name: stops
+            label: Stops
+            label_singular: Stop
+            widget: list
+            summary: "{{name}}"
+            hint: Each stop gets a hidden `number`, computed from `{{index}}`, its position in the list.
+            required: false
+            fields:
+              - name: name
+                label: Name
+              - name: number
+                label: Stop Number
+                widget: compute
+                value: "{{index}}"
+
+      - name: datetime
+        label: DateTime
+        icon: calendar_month
+        file: content/examples/datetime.yml
+        fields:
+          - name: datetime
+            label: Date & Time
+            widget: datetime
+            hint: Saved as an ISO 8601 string in the local time zone.
+            required: false
+          - name: date
+            label: Date Only
+            widget: datetime
+            time_format: false
+            hint: "`time_format: false` hides the time input."
+            required: false
+          - name: time
+            label: Time Only
+            widget: datetime
+            date_format: false
+            hint: "`date_format: false` hides the date input."
+            required: false
+          - name: formatted
+            label: Custom Format
+            widget: datetime
+            format: YYYY/MM/DD HH:mm
+            hint: "`format` sets the stored format, written in Day.js tokens."
+            required: false
+          - name: utc
+            label: UTC
+            widget: datetime
+            picker_utc: true
+            hint: "`picker_utc` enters and saves the time in UTC."
+            required: false
+          - name: updated
+            label: Auto Now
+            widget: datetime
+            auto_now: [create, update]
+            hint: "`auto_now` fills in the current time when the entry is created and saved."
+            required: false
+
+      - name: file
+        label: File
+        icon: attach_file
+        file: content/examples/file.yml
+        media_folder: /static/files
+        public_folder: /files
+        fields:
+          - name: single
+            label: Single
+            widget: file
+            hint: This entry uses the Downloads folder with the file-level `media_folder` option.
+            required: false
+          - name: multiple
+            label: Multiple
+            widget: file
+            multiple: true
+            required: false
+          - name: gpx
+            label: GPX Only
+            widget: file
+            accept: .gpx
+            hint: "`accept: .gpx` limits the file types."
+            required: false
+
       - name: hidden
         label: Hidden
-        widget: hidden
-        default: example
-      - name: object
-        label: Object
-        widget: object
-        summary: "{{name}}"
-        required: false
+        icon: visibility_off
+        file: content/examples/hidden.yml
         fields:
-          - name: name
-            label: Name
-          - name: email
-            label: Email
+          - name: note
+            label: Visible Field
+            widget: text
+            hint: This entry also has two Hidden fields, `layout` and `id`, which aren’t shown in the editor but are still saved in the file.
             required: false
-            pattern: ['^.+@.+\..+$', Enter a valid email address]
+          - name: layout
+            label: Layout
+            widget: hidden
+            default: example
+          - name: id
+            label: ID
+            widget: hidden
+            default: "{{uuid_short}}"
+
+      - name: image
+        label: Image
+        icon: image
+        file: content/examples/image.yml
+        fields:
+          - name: single
+            label: Single
+            widget: image
+            hint: Upload an image, pick one from the Assets, or enter a URL.
+            required: false
+          - name: gallery
+            label: Multiple
+            widget: image
+            multiple: true
+            max: 6
+            hint: "`multiple: true` with `max: 6`. Drag to reorder."
+            required: false
+          - name: svg
+            label: SVG Only, No URL
+            widget: image
+            accept: image/svg+xml
+            choose_url: false
+            hint: "`accept` limits the file types, and `choose_url: false` hides the URL input."
+            required: false
+
+      - name: keyvalue
+        label: KeyValue
+        icon: table_rows
+        file: content/examples/keyvalue.yml
+        fields:
+          - name: plain
+            label: Plain
+            widget: keyvalue
+            required: false
+          - name: labeled
+            label: Custom Labels
+            label_singular: Header
+            widget: keyvalue
+            key_label: Header Name
+            value_label: Header Value
+            hint: "`key_label`, `value_label` and `label_singular` change the column and button labels."
+            required: false
+
       - name: list
-        label: List (Strings)
-        widget: list
-        required: false
-      - name: list_fields
-        label: List (Objects)
-        label_singular: Stop
-        widget: list
-        summary: "{{name}} ({{distance}} km)"
-        required: false
+        label: List
+        icon: format_list_bulleted
+        file: content/examples/list.yml
         fields:
-          - name: name
-            label: Name
-          - name: distance
-            label: Distance
-            widget: number
-            value_type: float
+          - name: strings
+            label: Strings
+            widget: list
+            hint: Without `field`, `fields` or `types`, each item is a string.
             required: false
-      - name: list_types
-        label: List (Variable Types)
-        label_singular: Block
-        widget: list
-        required: false
-        types:
-          - name: heading
-            label: Heading
-            summary: "{{text}}"
+          - name: single_field
+            label: Single Subfield
+            label_singular: Country
+            widget: list
+            hint: "`field` gives each item one field. The values are saved as a plain list."
+            required: false
+            field:
+              name: country
+              label: Country
+              widget: select
+              options: [Canada, France, Iceland, Japan, New Zealand, Norway, Peru, Scotland]
+          - name: stops
+            label: Subfields
+            label_singular: Stop
+            widget: list
+            summary: "{{name}} ({{distance}} km)"
+            thumbnail: photo
+            hint: "`fields` gives each item a set of subfields, with `summary` and `thumbnail` for the collapsed view."
+            required: false
+            fields:
+              - name: name
+                label: Name
+              - name: distance
+                label: Distance
+                widget: number
+                value_type: float
+                after_input: km
+                required: false
+              - name: photo
+                label: Photo
+                widget: image
+                required: false
+          - name: highlights
+            label: Limits
+            label_singular: Highlight
+            widget: list
+            min: 1
+            max: 3
+            add_to_top: true
+            collapsed: false
+            hint: "`min` and `max` limit the number of items. `add_to_top` adds new items at the top."
+            required: false
             fields:
               - name: text
                 label: Text
-          - name: quote
-            label: Quote
-            summary: "{{author}}"
-            fields:
+          - name: blocks
+            label: Variable Types
+            label_singular: Block
+            widget: list
+            hint: "`types` lets you pick a kind of item, like page builder blocks."
+            required: false
+            types:
+              - name: heading
+                label: Heading
+                summary: "{{text}}"
+                fields:
+                  - name: text
+                    label: Text
               - name: quote
                 label: Quote
-                widget: text
-              - name: author
-                label: Author
-          - name: photo
-            label: Photo
-            summary: "{{caption}}"
+                summary: "{{author}}"
+                fields:
+                  - name: quote
+                    label: Quote
+                    widget: text
+                  - name: author
+                    label: Author
+              - name: photo
+                label: Photo
+                summary: "{{caption}}"
+                fields:
+                  - name: src
+                    label: Image
+                    widget: image
+                  - name: caption
+                    label: Caption
+                    required: false
+
+      - name: map
+        label: Map
+        icon: map
+        file: content/examples/map.yml
+        fields:
+          - name: point
+            label: Point
+            widget: map
+            center: [3.2247, 51.2093]
+            zoom: 12
+            hint: Click the map to place a point. Search for a place or use your location in the toolbar.
+            required: false
+          - name: route
+            label: Line
+            widget: map
+            type: LineString
+            decimals: 5
+            hint: "`type: LineString` draws a route. `decimals` sets the precision of the coordinates."
+            required: false
+          - name: area
+            label: Polygon
+            widget: map
+            type: Polygon
+            hint: "`type: Polygon` draws an area."
+            required: false
+
+      - name: number
+        label: Number
+        icon: pin
+        file: content/examples/number.yml
+        fields:
+          - name: integer
+            label: Integer
+            widget: number
+            value_type: int
+            min: 1
+            max: 10
+            hint: "`value_type: int` with `min` and `max`."
+            required: false
+          - name: float
+            label: Float
+            widget: number
+            value_type: float
+            step: 0.1
+            after_input: km
+            hint: "`value_type: float` with a `step` and an `after_input` label."
+            required: false
+          - name: price
+            label: Number as String
+            widget: number
+            value_type: float/string
+            before_input: $
+            hint: "`value_type: float/string` saves the number as a string, like `\"9.99\"`."
+            required: false
+
+      - name: object
+        label: Object
+        icon: data_object
+        file: content/examples/object.yml
+        fields:
+          - name: contact
+            label: Subfields
+            widget: object
+            summary: "{{name}}"
+            hint: A group of subfields. Collapse it to see the `summary`.
+            required: false
             fields:
-              - name: src
-                label: Image
-                widget: image
-              - name: caption
-                label: Caption
+              - name: name
+                label: Name
+              - name: email
+                label: Email
+                type: email
                 required: false
+          - name: location
+            label: Collapsed
+            widget: object
+            collapsed: true
+            summary: "{{city}}, {{country}}"
+            hint: "`collapsed: true` hides the subfields by default."
+            required: false
+            fields:
+              - name: city
+                label: City
+              - name: country
+                label: Country
+          - name: media
+            label: Variable Types
+            widget: object
+            hint: "`types` lets you choose one of several sets of subfields."
+            required: false
+            types:
+              - name: photo
+                label: Photo
+                fields:
+                  - name: src
+                    label: Image
+                    widget: image
+                  - name: alt
+                    label: Alt Text
+                    required: false
+              - name: video
+                label: Video
+                fields:
+                  - name: url
+                    label: YouTube URL
+                    type: url
+
+      - name: relation
+        label: Relation
+        icon: link
+        file: content/examples/relation.yml
+        fields:
+          - name: author
+            label: Single Entry
+            widget: relation
+            collection: authors
+            value_field: "{{slug}}"
+            search_fields: [name]
+            display_fields: ["{{name}} – {{role}}"]
+            hint: Picks an entry from another collection, here Authors. `display_fields` can be a template.
+            required: false
+          - name: posts
+            label: Multiple Entries
+            widget: relation
+            collection: posts
+            value_field: "{{slug}}"
+            search_fields: [title]
+            display_fields: [title]
+            multiple: true
+            hint: "`multiple: true` allows multiple entries."
+            required: false
+          - name: drafts
+            label: Filtered
+            widget: relation
+            collection: posts
+            value_field: "{{slug}}"
+            search_fields: [title]
+            display_fields: [title]
+            filters:
+              - field: draft
+                values: [true]
+            hint: "`filters` limits the options, here to draft posts."
+            required: false
+          - name: menu_item
+            label: Singleton List Items
+            widget: relation
+            collection: _singletons
+            file: navigation
+            value_field: items.*.url
+            search_fields: [items.*.label]
+            display_fields: [items.*.label]
+            hint: Picks an item from a list in a singleton, here the Navigation menu items.
+            required: false
+
+      - name: richtext
+        label: RichText
+        icon: article
+        file: content/examples/richtext.yml
+        fields:
+          - name: markdown
+            label: Markdown
+            widget: richtext
+            hint: Switch between the rich text and Markdown modes with the toolbar menu.
+            required: false
+          - name: html
+            label: HTML
+            widget: richtext
+            format: html
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, align]
+            hint: "`format: html` saves HTML instead of Markdown, and enables the `align` button."
+            required: false
+          - name: minimal
+            label: Minimal
+            widget: richtext
+            minimal: true
+            buttons: [bold, italic, link]
+            editor_components: []
+            hint: "`minimal` limits the height, while `buttons` and `editor_components` limit the toolbar."
+            required: false
+          - name: raw
+            label: Markdown Only
+            widget: richtext
+            modes: [raw]
+            hint: "`modes: [raw]` shows the plain Markdown editor only."
+            required: false
+
+      - name: select
+        label: Select
+        icon: list_alt
+        file: content/examples/select.yml
+        fields:
+          - name: radio
+            label: Radio Buttons
+            widget: select
+            options:
+              - { label: Spring, value: spring }
+              - { label: Summer, value: summer }
+              - { label: Autumn, value: autumn }
+              - { label: Winter, value: winter }
+            hint: Up to 5 options are shown as radio buttons. Options can have labels and values.
+            required: false
+          - name: dropdown
+            label: Dropdown
+            widget: select
+            options: [Canada, France, Iceland, Japan, New Zealand, Norway, Peru, Scotland]
+            hint: More options are shown in a dropdown list. Change it with `dropdown_threshold`.
+            required: false
+          - name: checkboxes
+            label: Checkboxes
+            widget: select
+            multiple: true
+            options: [Hiking, Cycling, Kayaking, Camping]
+            hint: "`multiple: true` allows multiple choices."
+            required: false
+          - name: multiple
+            label: Multiple with Limits
+            widget: select
+            multiple: true
+            min: 1
+            max: 3
+            options: [Hiking, Cycling, Kayaking, Climbing, Camping, Photography, Birdwatching, Skiing]
+            hint: "`min` and `max` limit the number of choices."
+            required: false
+
+      - name: string
+        label: String
+        icon: short_text
+        file: content/examples/string.yml
+        fields:
+          - name: plain
+            label: Plain
+            hint: The default field type, used when `widget` is omitted.
+          - name: url
+            label: URL
+            type: url
+            hint: "`type: url` checks the value is a URL."
+            required: false
+          - name: email
+            label: Email
+            type: email
+            hint: "`type: email` checks the value is an email address."
+            required: false
+          - name: handle
+            label: Before & After Input
+            before_input: "@"
+            after_input: .bsky.social
+            hint: "`before_input` and `after_input` add labels around the input. They’re not saved."
+            required: false
+          - name: tag
+            label: Prefix & Suffix
+            prefix: "#"
+            hint: "`prefix` and `suffix` are saved with the value: type `travel` and `#travel` is stored."
+            required: false
+          - name: headline
+            label: Character Count
+            minlength: 10
+            maxlength: 60
+            hint: "`minlength` and `maxlength` show a character counter."
+            required: false
+          - name: code
+            label: Pattern
+            pattern: ['^[A-Z]{3}$', 'Enter a three-letter airport code, like YVR']
+            hint: "`pattern` validates the value with a regular expression."
+            required: false
+          - name: readonly
+            label: Read-Only
+            readonly: true
+            required: false
+
+      - name: text
+        label: Text
+        icon: notes
+        file: content/examples/text.yml
+        fields:
+          - name: plain
+            label: Plain
+            widget: text
+            hint: A multiline text area. Line breaks are kept as is.
+            required: false
+          - name: limited
+            label: Character Count
+            widget: text
+            minlength: 20
+            maxlength: 160
+            hint: "`minlength` and `maxlength` show a character counter, handy for a meta description."
+            required: false
+          - name: emoji
+            label: Emoji Autocomplete
+            widget: text
+            use_emoji_autocomplete: true
+            hint: "With `use_emoji_autocomplete`, type `:` followed by a name, like `:sun`."
+            required: false
+
+      - name: uuid
+        label: UUID
+        icon: fingerprint
+        file: content/examples/uuid.yml
+        fields:
+          - name: plain
+            label: Plain
+            widget: uuid
+          - name: prefixed
+            label: Prefix & Base32
+            widget: uuid
+            prefix: "trip-"
+            use_b32_encoding: true
+            readonly: false
+            hint: >-
+              A UUID is generated when an entry is created, and is read-only by default like the one
+              above. This one uses `prefix`, `use_b32_encoding` for a shorter value, and
+              `readonly: false`.
 
 singletons:
   - name: site

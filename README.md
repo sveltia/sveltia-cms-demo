@@ -13,7 +13,7 @@ The sample content shows off:
 - **Posts**: a multilingual collection in English, Japanese and French (`multiple_folders` structure), with a relation to Authors, filters, groups and a draft
 - **Authors**: YAML entries with a collection-level media folder
 - **Pages**: a nested collection shown as a tree
-- **Field Types**: one entry with every built-in field type
+- **Field Types**: a file collection with one entry per built-in field type, showing its main options
 - **Site Settings**, **Navigation** and **Theme**: singletons in YAML (with `single_file` i18n), JSON and TOML
 - **Downloads**: an asset collection
 

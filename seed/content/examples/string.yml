@@ -1,0 +1,8 @@
+plain: Hello, world!
+url: https://sveltiacms.app/
+email: hello@example.com
+handle: ava
+tag: '#travel'
+headline: A Weekend in the Highlands
+code: YVR
+readonly: You can’t change this one.

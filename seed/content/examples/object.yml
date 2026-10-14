@@ -1,0 +1,10 @@
+contact:
+  name: Ava Clarke
+  email: ava@example.com
+location:
+  city: Bruges
+  country: Belgium
+media:
+  type: photo
+  src: /images/highland-cow.webp
+  alt: A highland cow in the grass

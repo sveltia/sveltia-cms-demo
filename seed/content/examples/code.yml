@@ -1,0 +1,11 @@
+snippet:
+  code: |-
+    const greet = (name) => `Hello, ${name}!`;
+
+    console.log(greet('Sveltia'));
+  lang: js
+css: |-
+  .card {
+    border-radius: 8px;
+    padding: 16px;
+  }

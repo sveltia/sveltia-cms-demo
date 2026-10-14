@@ -1,0 +1,6 @@
+plain:
+  difficulty: Moderate
+  season: Spring to autumn
+labeled:
+  Cache-Control: max-age=3600
+  X-Frame-Options: DENY

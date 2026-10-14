@@ -1,0 +1,19 @@
+markdown: |-
+  The **rich text** field supports *Markdown*, [links](https://sveltiacms.app/), lists and more.
+
+  - Item one
+  - Item two
+
+  ![Cherry blossoms](/images/cherry-blossoms.webp)
+
+  ```js
+  console.log('Code blocks too!');
+  ```
+html: >-
+  <h2>Saved as HTML</h2><p style="text-align: center">This paragraph is <strong>centred</strong>
+  with the alignment menu.</p>
+minimal: A short note with **bold** and *italic* text only.
+raw: |-
+  ## Plain Markdown
+
+  No toolbar, just text.

@@ -1,0 +1,8 @@
+radio: autumn
+dropdown: Iceland
+checkboxes:
+  - Hiking
+  - Camping
+multiple:
+  - Kayaking
+  - Photography

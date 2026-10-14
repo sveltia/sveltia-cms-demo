@@ -1,0 +1,5 @@
+single: /files/coastal-walk.gpx
+multiple:
+  - /files/coastal-walk.gpx
+  - /files/trip-checklist.txt
+gpx: /files/coastal-walk.gpx

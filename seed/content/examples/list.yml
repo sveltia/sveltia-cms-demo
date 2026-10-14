@@ -1,0 +1,28 @@
+strings:
+  - Lakes
+  - Mountains
+  - Coast
+single_field:
+  - Japan
+  - Iceland
+stops:
+  - name: Trailhead
+    distance: 0
+    photo: /images/forest-coast.webp
+  - name: Waterfall
+    distance: 3.7
+    photo: /images/waterfall.webp
+  - name: Valley Loop
+    distance: 7.4
+    photo: /images/misty-valley.webp
+highlights:
+  - text: Sunrise over the lake
+blocks:
+  - type: heading
+    text: A Heading Block
+  - type: quote
+    quote: Not all those who wander are lost.
+    author: J. R. R. Tolkien
+  - type: photo
+    src: /images/highland-cow.webp
+    caption: A local resident
