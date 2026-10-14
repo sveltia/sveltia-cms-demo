@@ -15,6 +15,7 @@ export const root = join(import.meta.dirname, '..');
  */
 export const SITE_FILES = [
   'index.html',
+  'api.js',
   '404.html',
   'config.yml',
   'logo.svg',

@@ -3,6 +3,9 @@
 
 /config.yml
   Cache-Control: no-cache
+
+/api.js
+  Cache-Control: no-cache
   Content-Type: application/yaml; charset=utf-8
 
 /seed/manifest.json

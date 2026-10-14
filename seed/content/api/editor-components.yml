@@ -1,0 +1,19 @@
+body: |-
+  Custom editor components turn custom Markdown syntax into forms and controls in the rich text editor.
+
+  :::tip
+  Pack a headlamp for the night walk.
+  :::
+
+  {{< figure src="/images/canoe.webp" caption="Morning on the lake" >}}
+
+  {{< code-sample title="Greeting" lang="js" >}}
+  console.log('Hello, hikers!');
+  {{< /code-sample >}}
+
+  Read the [link text="packing list" url="https://example.com/packing-list"] before you go {{< icon src="/images/logo.svg" >}}
+
+  Trail report: [status:review]
+html_body: >-
+  <p>The same Image with Caption component, saved as HTML:</p><figure><img src="/images/cliffs.webp"
+  alt=""><figcaption>Cliffs at sunset</figcaption></figure>

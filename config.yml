@@ -804,6 +804,144 @@ collections:
               above. This one uses `prefix`, `use_b32_encoding` for a shorter value, and
               `readonly: false`.
 
+  - name: api
+    label: API Examples
+    label_singular: API Example
+    description: Examples of the JavaScript API, defined in `api.js`. See the Demo Guide page in the toolbar for an overview.
+    icon: code_blocks
+    editor:
+      preview: false
+    files:
+      - name: postcard
+        label: Custom Preview Styles & Templates
+        icon: preview
+        file: content/api/postcard.yml
+        editor:
+          preview: true
+        fields:
+          - name: photo
+            label: Photo
+            widget: image
+            hint: >-
+              The preview pane shows a postcard, rendered by a template registered with
+              `CMS.registerPreviewTemplate()` and styled with `CMS.registerPreviewStyle()`.
+            required: false
+          - name: message
+            label: Message
+            widget: richtext
+            minimal: true
+            required: false
+          - name: to
+            label: To
+            required: false
+          - name: from
+            label: From
+            required: false
+
+      - name: editor-components
+        label: Custom Editor Components
+        icon: widgets
+        file: content/api/editor-components.yml
+        fields:
+          - name: body
+            label: Markdown
+            widget: richtext
+            hint: >-
+              Six components are registered with `CMS.registerEditorComponent()`. Add them from the
+              Insert menu, except Status, which has its own toolbar button. Switch to the Markdown
+              mode in the toolbar menu to see how they’re saved.
+          - name: html_body
+            label: HTML
+            widget: richtext
+            format: html
+            editor_components: [figure]
+            hint: >-
+              Image with Caption also defines an HTML syntax, so it works in a RichText field with
+              `format: html`. `editor_components` limits this field to that component.
+            required: false
+
+      - name: field-types
+        label: Custom Field Types
+        icon: star
+        file: content/api/field-types.yml
+        fields:
+          - name: rating
+            label: Rating
+            widget: rating
+            hint: >-
+              A custom `rating` field type registered with `CMS.registerFieldType()`, saved as a
+              number.
+            required: false
+          - name: rating_10
+            label: Rating out of 10
+            widget: rating
+            max: 10
+            hint: The custom `max` option is validated with the field type’s JSON schema.
+            required: false
+          - name: trails
+            label: Trail Ratings
+            label_singular: Rating
+            widget: list
+            collapsed: true
+            hint: The collapsed items show the field type’s summary component.
+            required: false
+            field:
+              name: stars
+              label: Stars
+              widget: rating
+
+      - name: string-transformations
+        label: Custom String Transformations
+        icon: text_format
+        file: content/api/string-transformations.yml
+        fields:
+          - name: name
+            label: Name
+            hint: >-
+              A custom `initials` transformation is registered with
+              `CMS.registerStringTransformation()`. On save, a hidden Compute field stores
+              `{{fields.name | initials}}`.
+          - name: initials
+            label: Initials
+            widget: compute
+            value: "{{fields.name | initials}}"
+          - name: team
+            label: Team
+            label_singular: Member
+            widget: list
+            collapsed: true
+            summary: "{{name | initials}} – {{name}}"
+            hint: The collapsed list items use the same transformation in their summary.
+            required: false
+            fields:
+              - name: name
+                label: Name
+
+      - name: events
+        label: Event Hooks
+        icon: bolt
+        file: content/api/events.yml
+        fields:
+          - name: note
+            label: Note
+            widget: text
+            hint: >-
+              Edit this note and save. A `preSave` hook registered with
+              `CMS.registerEventListener()` updates the two fields below, and a `postSave` hook
+              logs a message to the browser console.
+            required: false
+          - name: save_count
+            label: Save Count
+            widget: number
+            value_type: int
+            readonly: true
+            required: false
+          - name: last_saved
+            label: Last Saved
+            widget: datetime
+            readonly: true
+            required: false
+
 singletons:
   - name: site
     label: Site Settings
