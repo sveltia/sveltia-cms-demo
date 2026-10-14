@@ -9,51 +9,6 @@
 
 const { useState } = CMS.React;
 
-// Custom preview styles and templates: a postcard
-// https://sveltiacms.app/en/docs/api/preview-styles
-// https://sveltiacms.app/en/docs/api/preview-templates
-
-CMS.registerPreviewStyle(
-  `
-    body { margin: 0; padding: 24px; background: #e8e2d6; font-family: Georgia, serif; }
-    .postcard { max-width: 640px; margin: auto; background: #fffdf7; color: #333;
-      box-shadow: 0 4px 16px rgb(0 0 0 / 20%); }
-    .postcard img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-    .postcard-body { display: grid; grid-template-columns: 3fr 2fr; gap: 24px; padding: 24px; }
-    .postcard-message { font-style: italic; line-height: 1.6; }
-    .postcard-address { padding-left: 24px; border-left: 1px solid #ccc; }
-    .postcard-from { color: #777; font-size: 14px; }
-  `,
-  { raw: true },
-);
-
-/**
- * Preview of the Postcard entry.
- * @param {object} props Props.
- * @param {any} props.entry Entry as an Immutable Map.
- * @param {(name: string) => any} props.widgetFor Function to render a field preview.
- * @param {(path: string) => { url: string } | undefined} props.getAsset Function to get an asset.
- * @returns {any} React element.
- */
-const PostcardPreview = ({ entry, widgetFor, getAsset }) => {
-  const photo = entry.getIn(['data', 'photo']);
-
-  return html`
-    <article class="postcard">
-      ${photo && html`<img src=${getAsset(photo)?.url ?? photo} alt="" />`}
-      <div class="postcard-body">
-        <div class="postcard-message">${widgetFor('message')}</div>
-        <div class="postcard-address">
-          <p>${entry.getIn(['data', 'to'])}</p>
-          <p class="postcard-from">From ${entry.getIn(['data', 'from'])}</p>
-        </div>
-      </div>
-    </article>
-  `;
-};
-
-CMS.registerPreviewTemplate('postcard', PostcardPreview);
-
 // Custom editor components, available in every RichText field, in the order of the Insert menu
 // https://sveltiacms.app/en/docs/api/editor-components
 
@@ -271,7 +226,6 @@ CMS.registerStringTransformation('initials', (value) =>
 // https://sveltiacms.app/en/docs/api/custom-pages
 
 const API_EXAMPLES = [
-  ['Custom Preview Styles & Templates', 'postcard', 'preview-templates'],
   ['Custom Editor Components', 'editor-components', 'editor-components'],
   ['Custom Field Types', 'field-types', 'field-types'],
   ['Custom String Transformations', 'string-transformations', 'string-transformations'],

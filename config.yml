@@ -821,32 +821,6 @@ collections:
     editor:
       preview: false
     files:
-      - name: postcard
-        label: Custom Preview Styles & Templates
-        icon: preview
-        file: content/api/postcard.yml
-        editor:
-          preview: true
-        fields:
-          - name: photo
-            label: Photo
-            widget: image
-            hint: >-
-              The preview pane shows a postcard, rendered by a template registered with
-              `CMS.registerPreviewTemplate()` and styled with `CMS.registerPreviewStyle()`.
-            required: false
-          - name: message
-            label: Message
-            widget: richtext
-            minimal: true
-            required: false
-          - name: to
-            label: To
-            required: false
-          - name: from
-            label: From
-            required: false
-
       - name: editor-components
         label: Custom Editor Components
         icon: widgets

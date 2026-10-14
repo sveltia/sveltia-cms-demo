@@ -14,7 +14,7 @@ The sample content shows off:
 - **Authors**: YAML entries with a collection-level media folder, table columns and bulk editing
 - **Pages**: a nested collection shown as a tree
 - **Field Types**: a file collection with one entry per built-in field type, showing its main options
-- **API Examples**: [JavaScript API](https://sveltiacms.app/en/docs/api) examples defined in `api.js`: custom preview styles and templates, editor components, a field type and a string transformation, event hooks, and a Demo Guide custom page
+- **API Examples**: [JavaScript API](https://sveltiacms.app/en/docs/api) examples defined in `api.js`: editor components, a field type and a string transformation, event hooks, and a Demo Guide custom page
 - **Site Settings**, **Navigation** and **Theme**: singletons in YAML (with `single_file` i18n), JSON and TOML
 - **Downloads**: an asset collection
 
